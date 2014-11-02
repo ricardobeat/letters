@@ -75,7 +75,7 @@
     var debounce = 0
     function showRandomLetter (e) {
         var now = Date.now()
-        if (now - debounce < 300) return
+        if (now - debounce < 600) return
         debounce = now
         ga('send', 'event', 'actions', 'random');
         var randomLetter = Math.floor(65 + Math.random() * 26)
