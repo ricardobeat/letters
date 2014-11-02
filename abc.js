@@ -54,6 +54,7 @@
     }
 
     Settings.prototype.render = function () {
+        ga('send', 'event', 'game', 'language changed', this.lang);
         currentLanguage.text(this.audio ? this.lang.toLowerCase() : AUDIO_OFF)
     }
 
@@ -114,11 +115,13 @@
     // ------------------------------------------------------------------------
 
     function setupEvents () {
-        $(document).on('keypress', function(e){ 
+        $(document).on('keypress', function(e){
+            ga('send', 'event', 'actions', 'keypress');
             showLetter(String.fromCharCode(e.keyCode))
         })
 
         function showRandom (e) {
+            ga('send', 'event', 'actions', 'random');
             var randomLetter = Math.floor(65 + Math.random() * 26)
             showLetter(String.fromCharCode(randomLetter))
         }
@@ -134,6 +137,7 @@
             if (fullScreen) {
                 exitFullScreen.call(document)
             } else {
+                ga('send', 'event', 'game', 'fullscreen');
                 RequestFullscreen.call(document.documentElement)
             }
         })
