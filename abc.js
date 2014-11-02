@@ -99,6 +99,7 @@
     // Language options for speech synthesis
     function createLanguageOptions () {
         var availableLanguages = _.unique(_.pluck(speechSynthesis.getVoices(), 'lang')).sort()
+        if (availableLanguages.length === 0) availableLanguages.push(navigator.language || 'en')
         availableLanguages.push(AUDIO_OFF)
 
         languageSelect.empty()
