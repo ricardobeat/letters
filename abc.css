@@ -16,6 +16,7 @@ body {
          -moz-user-select: none;
           -ms-user-select: none;
               user-select: none;
+    overflow: hidden;
 }
 
 .hidden {
@@ -23,12 +24,12 @@ body {
 }
 
 .letter {
-    position: fixed;
-    top: 0;
+    position: absolute;
+    top: 30px;
     left: 0;
-    bottom: 0;
+    bottom: 30px;
     right: 0;
-    line-height: 100vh;
+    line-height: 90vh;
     font-size: 75vh;
     color: #3344ff;
     text-align: center;
@@ -75,4 +76,22 @@ body {
     position: relative;
     top: 2px;
     margin-right: .4em;
+}
+
+#full-screen {
+    border: 0;
+    -webkit-appearance: none;
+            appearance: none;
+    background: transparent;
+    padding: 0;
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    z-index: 11;
+    cursor: pointer;
+    outline: 0;
+}
+
+#full-screen:before {
+    content: url(full-screen.svg);
 }

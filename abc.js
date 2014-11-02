@@ -14,6 +14,8 @@
     // Fallbacks
     var SpeechSynthesisUtterance = _.prefix('SpeechSynthesisUtterance')
     var speechSynthesis          = _.prefix('speechSynthesis')
+    var RequestFullscreen        = _.prefix('RequestFullscreen', document.documentElement) || function () {}
+    var exitFullScreen           = _.prefix('exitFullscreen', document) || function () {}
     var hasSpeech                = speechSynthesis && SpeechSynthesisUtterance;
 
     // Settings
@@ -121,23 +123,43 @@
             showLetter(String.fromCharCode(randomLetter))
         }
 
-        $(document).on({
+        letter.on({
             mousedown: showRandom,
             touchstart: showRandom
         })
+
+        var fullScreen = false
+
+        $('#full-screen').on('click', function (e) {
+            if (fullScreen) {
+                exitFullScreen.call(document)
+            } else {
+                RequestFullscreen.call(document.documentElement)
+            }
+        })
+
+        $(document).on('webkitfullscreenchange', function () {
+            fullScreen = !!_.prefix('isFullScreen', document)
+        });
+
     }
 
     /* Initialize */
     function init () {
         settings.init()
-        createLanguageOptions()
-        setupEvents()
+        
         // Audio
-        if (!hasSpeech) settings.set('audio', false)
+        createLanguageOptions()
+        if (hasSpeech) {
+            speechSynthesis.onvoiceschanged = createLanguageOptions   
+        } else {
+            settings.set('audio', false)
+        }
 
-        speechSynthesis.onvoiceschanged = createLanguageOptions
+        setupEvents()
+
     }
 
-    setTimeout(init, 0)
+    init()
 
 })();
