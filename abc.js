@@ -124,6 +124,19 @@
     // App
     // ------------------------------------------------------------------------
 
+    function showIntro () {
+        var intro = $.create('<p>').addClass('intro').text(
+            /pt/.test(settings.lang)
+                ? "Aperte uma tecla..."
+                : "Press any key..."
+        )
+        $(document.body).append(intro)
+    }
+
+    function hideIntro () {
+        $('.intro').remove()
+    }
+
     function setupEvents () {
         $(document).on('keypress', function(e){
             ga('send', 'event', 'actions', 'keypress');
@@ -150,6 +163,10 @@
             fullScreen = !!_.prefix('isFullScreen', document)
         });
 
+        $(document).once('keydown', hideIntro)
+        $(document).once('mousedown', hideIntro)
+        $(document).once('touchstart', hideIntro)
+
     }
 
     /* Initialize */
@@ -165,7 +182,7 @@
         }
 
         setupEvents()
-
+        showIntro()
     }
 
     init()
