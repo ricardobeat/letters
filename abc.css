@@ -95,3 +95,13 @@ body {
 #full-screen:before {
     content: url(full-screen.svg);
 }
+
+.gh-watch {
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+    opacity: 0.5;
+}
+.gh-watch:hover {
+    opacity: 1;
+}
