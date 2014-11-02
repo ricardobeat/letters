@@ -72,6 +72,16 @@
         say(char)
     }
 
+    var debounce = 0
+    function showRandomLetter (e) {
+        var now = Date.now()
+        if (now - debounce < 300) return
+        debounce = now
+        ga('send', 'event', 'actions', 'random');
+        var randomLetter = Math.floor(65 + Math.random() * 26)
+        showLetter(String.fromCharCode(randomLetter))
+    }
+
 
     // TTS
     // ------------------------------------------------------------------------
@@ -120,15 +130,9 @@
             showLetter(String.fromCharCode(e.keyCode))
         })
 
-        function showRandom (e) {
-            ga('send', 'event', 'actions', 'random');
-            var randomLetter = Math.floor(65 + Math.random() * 26)
-            showLetter(String.fromCharCode(randomLetter))
-        }
-
         letter.on({
-            mousedown: showRandom,
-            touchstart: showRandom
+            mousedown: showRandomLetter,
+            touchstart: showRandomLetter
         })
 
         var fullScreen = false
